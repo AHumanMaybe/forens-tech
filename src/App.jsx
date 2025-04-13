@@ -2577,7 +2577,7 @@ function App() {
   });
 
   const [page, setPage] = useState("enter");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(testData);
 
 
   const handleSubmit = async (event) =>
@@ -2602,8 +2602,8 @@ function App() {
       const response = await fetch("http://127.0.0.1:8000/request", requestOptions);
       const data = await response.json();
       console.log('Response:', data);
-      setPage("results");
-      setData(data);
+      //setPage("results");
+      //setData(JSON.parse(data));
     }
     catch (err)
     {
@@ -2611,7 +2611,7 @@ function App() {
     }
   }
 
-  if(page === "enter") {
+  if(false && page === "enter") {
     return (
         <>
           <TopNav/>
@@ -2635,17 +2635,36 @@ function App() {
                  style={{
                    transform: `translate(${offset.x}px, ${offset.y}px)`
                  }}
-            >
+              >
               <img src={randomImage} alt="Masked Image" className="masked-image"/>
             </div>
           </div>
         </>
     );
   }
-  else if(page === "results")
+  else if(true || page === "results")
   {
+    console.log(testData["cleanStat"]["0"]);
     return(
-      <></>
+      <>
+        <p>This is the result from cleanStat</p>
+        <table>
+          <th>
+            {Object.keys(testData["cleanStat"]["0"]).map( (item) =>
+              <th>{item}</th>
+            )}
+          </th>
+          {Object.keys(testData["cleanStat"]).map( (idx) =>
+              <tr>
+                {
+                  Object.values(testData["cleanStat"][idx]).map( (value) =>
+                      <td>{value}</td>
+                  )
+                }
+              </tr>
+            )}
+        </table>
+      </>
     );
   }
 }
