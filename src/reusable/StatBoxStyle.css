@@ -1,0 +1,35 @@
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Fills available space */
+    min-width: 150px;
+    height: 120px;
+    background-color: #1e1e1e;
+    border: 2px solid #444;
+    border-radius: 12px;
+    margin: 10px;
+    color: white;
+    font-family: 'Manrope', sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .stat-box:hover {
+    
+  }
+  
+  .stat-number {
+    font-size: 32px;
+    font-weight: 700;
+  }
+  
+  .stat-label {
+    font-size: 14px;
+    margin-top: 6px;
+    text-align: center;
+    opacity: 0.8;
+  }
+  

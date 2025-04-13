@@ -1,106 +1,57 @@
 import { useState } from "react";
 import "./CheckboxGroup.css";
 
-function Checkboxes() {
-  const [checkedItems, setCheckedItems] = useState({
-    news: false,
-    updates: false,
-    offers: false,
-  });
+const infoTexts = {
+  osInfo: "Helpful for identifying the target environment.",
+  procList: "Useful for detecting suspicious or hidden processes.",
+  cmds: "Great for reconstructing attacker actions.",
+  netConn: "Key for spotting remote connections or data exfiltration.",
+  listFiles: "Useful for finding files in use during compromise.",
+  yara: "Powerful for detecting known threats or custom patterns.",
+};
+
+function Checkboxes(props) {
+
+  const [visibleInfo, setVisibleInfo] = useState(null);
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
-    setCheckedItems({ ...checkedItems, [name]: checked });
+    props.setCheckedItems({ ...props.checkedItems, [name]: checked });
   };
 
-  return (
+  const toggleInfo = (name) => {
+    setVisibleInfo((prev) => (prev === name ? null : name));
+  };
 
-
-    /* OS INFO */
-
-    <div className="checkbox-container">
-      <label className="checkbox-wrapper">
-        <input
-          type="checkbox"
-          name="OSinfo"
-          checked={checkedItems.OSinfo}
-          onChange={handleChange}
-          className="custom-checkbox"
-        />
-        <span className="checkbox-label">OS info</span>
-      </label>
-
-
-        {/* PROCESS LIST */}
-
-      <label className="checkbox-wrapper">
-        <input
-          type="checkbox"
-          name="processList"
-          checked={checkedItems.processList}
-          onChange={handleChange}
-          className="custom-checkbox"
-        />
-        <span className="checkbox-label">Process List</span>
-      </label>
-
-
-        {/* EXECUTE COMMANDS */}
-
-      <label className="checkbox-wrapper">
-        <input
-          type="checkbox"
-          name="execCmds"
-          checked={checkedItems.execCmds}
-          onChange={handleChange}
-          className="custom-checkbox"
-        />
-        <span className="checkbox-label">Executed Commands</span>
-      </label>
-
-
-        {/* SHOW NEXT CONNECTIONS */}
-
-      <label className="checkbox-wrapper">
-        <input
-          type="checkbox"
-          name="showNet"
-          checked={checkedItems.showNet}
-          onChange={handleChange}
-          className="custom-checkbox"
-        />
-        <span className="checkbox-label">Show Net Connections</span>
-      </label>
-
-
-        {/* LIST FILES */}
-
-      <label className="checkbox-wrapper">
-        <input
-          type="checkbox"
-          name="listFiles"
-          checked={checkedItems.listsFiles}
-          onChange={handleChange}
-          className="custom-checkbox"
-        />
-        <span className="checkbox-label">List Files</span>
-      </label>
-
-
-    {/* YARA RULES CHECK */}
-
-      <label className="checkbox-wrapper">
-        <input
-          type="checkbox"
-          name="yaraRules"
-          checked={checkedItems.yaraRules}
-          onChange={handleChange}
-          className="custom-checkbox"
-        />
-        <span className="checkbox-label">Yara Rules Check</span>
-      </label>
-    </div>
+  const renderCheckbox = (name, label) => (
+    <label className="checkbox-wrapper" key={name}>
+      <input
+        type="checkbox"
+        name={name}
+        checked={props.checkedItems[name]}
+        onChange={handleChange}
+        className="custom-checkbox"
+      />
+      <span className="checkbox-label">{label}</span>
+  
+      {/* Info Icon with tooltip on hover */}
+      <div className="info-wrapper">
+        <span className="info-icon">i</span>
+        <div className="tooltip">{infoTexts[name]}</div>
+      </div>
+    </label>
   );
+  
+  return (
+    <div className="checkbox-container">
+      {renderCheckbox("osInfo", "OS info")}
+      {renderCheckbox("procList", "Process List")}
+      {renderCheckbox("cmds", "Executed Commands")}
+      {renderCheckbox("netConn", "Show Net Connections")}
+      {renderCheckbox("listFiles", "List Files")}
+      {renderCheckbox("yara", "Yara Rules Check")}
+    </div>
+  );  
 }
 
 export default Checkboxes;

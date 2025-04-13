@@ -6,6 +6,8 @@ import React, { useMemo } from "react";
 import Dropdown from "./reusable/Dropdown.jsx";
 import Checkboxes from "./reusable/Checkboxes.jsx";
 import ExecuteBtn from "./reusable/ExecuteBtn.jsx";
+import TopNav from './reusable/TopNav.jsx';
+import StatBox from "./reusable/StatBox.jsx";
 
 
 
@@ -25,6 +27,7 @@ const getRandom = () => {
 };
 
 function App() {
+  const [isdatamode, setIsdatamode] = useState(false)
   const randomImage = useMemo(() => getRandom(), []);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -47,6 +50,7 @@ function App() {
 
   const handleSubmit = async (event) =>
   {
+    setIsdatamode(!isdatamode)
     try {
       console.log("Initiate Execute Analysis!");
       const formData = new FormData();
@@ -68,36 +72,67 @@ function App() {
       const response = await fetch("http://127.0.0.1", requestOptions);
       const data = await response.json();
       console.log('Response:', data);
+      
     }
     catch (err)
     {
       console.log("Failed to Execute Analysis!");
     }
-  }
-    
-  return (
-    <div className="scroll-wrap">
-    <div className = "layout" onMouseMove={handleMouseMove}>
-      <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg" />
-      <div className="left-side">
-        <div className = "logo"></div>
-        <div className = "tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools with emerging artificial intelligence technologies. </div>
-        <div className = "upload"></div>
-        <Dropdown/>
-        <div className="check-tests">
-          <Checkboxes checkChange = {setCheckedItems}/>
-          <ExecuteBtn handleSubmit={handleSubmit} />
-        </div>
-      </div>
 
-      <div className="wrapper"
-        style={{
-          transform: `translate(${offset.x}px, ${offset.y}px)`}} 
-      >
-        <img src={randomImage} alt="Masked Image" className="masked-image" />
+
+  }
+
+  const Dashboard = () => {
+    return (
+      <div style={{
+        display: "flex",
+        width: "100%",
+        padding: "20px",
+        boxSizing: "border-box",
+        gap: "20px"
+      }}>
+        <StatBox number={85} label="Threats Detected" />
+        <StatBox number={13} label="Investigations" />
+        <StatBox number={7} label="Alerts Resolved" />
       </div>
+    );
+  };
+
+  if (isdatamode) {
+    return(
+      <>
+        <div className="dash-wrapper">
+          <Dashboard />
+        </div>
+      </>
+    )
+  }
+  return (
+    <>
+    <TopNav/>
+    <div className = "layout" onMouseMove={handleMouseMove}>
+      
+        <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg" />
+        <div className="left-side">
+          <div className = "logo"></div>
+          <div className = "tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools with emerging artificial intelligence technologies. </div>
+          <div className = "upload"></div>
+          <Dropdown selected={file} setFile={setFile}/>
+          <div className="check-tests">
+            <h3>Select Arguments:</h3>
+            <Checkboxes setCheckedItems={setCheckedItems} checkedItems = {checkedItems} />
+            <ExecuteBtn onClick={handleSubmit}/>
+          </div>
+        </div>
+
+        <div className="wrapper"
+          style={{
+            transform: `translate(${offset.x}px, ${offset.y}px)`}} 
+        >
+          <img src={randomImage} alt="Masked Image" className="masked-image" />
+        </div>
     </div>
-    </div>
+    </>
   );
 }
 
