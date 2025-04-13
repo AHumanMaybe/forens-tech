@@ -6,6 +6,7 @@ import React, { useMemo } from "react";
 import Dropdown from "./reusable/Dropdown.jsx";
 import Checkboxes from "./reusable/Checkboxes.jsx";
 import ExecuteBtn from "./reusable/ExecuteBtn.jsx";
+import TopNav from "./reusable/TopNav.jsx";
 
 
 
@@ -36,28 +37,30 @@ function App() {
   };
     
   return (
-    <div className="scroll-wrap">
+    <>
+    <TopNav/>
     <div className = "layout" onMouseMove={handleMouseMove}>
-      <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg" />
-      <div className="left-side">
-        <div className = "logo"></div>
-        <div className = "tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools with emerging artificial intelligence technologies. </div>
-        <div className = "upload"></div>
-        <Dropdown/>
-        <div className="check-tests">
-          <Checkboxes/>
-          <ExecuteBtn/>
+      
+        <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg" />
+        <div className="left-side">
+          <div className = "logo"></div>
+          <div className = "tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools with emerging artificial intelligence technologies. </div>
+          <div className = "upload"></div>
+          <Dropdown/>
+          <div className="check-tests">
+            <Checkboxes/>
+            <ExecuteBtn/>
+          </div>
         </div>
-      </div>
 
-      <div className="wrapper"
-        style={{
-          transform: `translate(${offset.x}px, ${offset.y}px)`}} 
-      >
-        <img src={randomImage} alt="Masked Image" className="masked-image" />
-      </div>
+        <div className="wrapper"
+          style={{
+            transform: `translate(${offset.x}px, ${offset.y}px)`}} 
+        >
+          <img src={randomImage} alt="Masked Image" className="masked-image" />
+        </div>
     </div>
-    </div>
+    </>
   );
 }
 

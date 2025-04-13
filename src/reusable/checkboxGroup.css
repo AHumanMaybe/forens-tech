@@ -8,7 +8,7 @@
     font-family: 'Manrope';
   }
   
-  /* 🏷️ Wrapper for each checkbox + label */
+  /*  Wrapper for each checkbox + label */
   .checkbox-wrapper {
     display: flex;
     align-items: center;
@@ -17,7 +17,7 @@
     user-select: none;
   }
   
-  /* ✅ Custom checkbox input */
+  /*  Custom checkbox input */
   .custom-checkbox {
     appearance: none;
     -webkit-appearance: none;
@@ -58,4 +58,51 @@
     font-size: 16px;
     color: #ffffff;
   }
+
+  .info-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Info Icon */
+  .info-icon {
+    margin-left: 5px;
+    background-color: #333;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    user-select: none;
+  }
+
+  .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    max-width: 800px;            /* Wider tooltip */
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 6px 10px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 24px;
+    white-space: normal;         /* Allows line wrapping */
+    word-wrap: normal;           /* Don't force-break long words */
+    overflow-wrap: normal;       /* Don't break long words unless needed */
+    transition: opacity 0.2s ease-in-out;
+    font-size: 12px;
+  }
   
+  
+
+.info-wrapper:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}

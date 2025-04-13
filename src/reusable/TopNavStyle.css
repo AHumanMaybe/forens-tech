@@ -1,0 +1,45 @@
+/* Fixed top navigation bar */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    z-index: 1000;
+  }
+  
+  .pill {
+    
+    padding: 8px 20px;
+    border-radius: 99px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 500;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    white-space: nowrap;
+    height: 15px;
+  }
+  
+  /*  Length variations */
+  .longer-pill {
+    font-family: 'Manrope';
+    width: 80%;
+    text-align: center;
+  }
+  
+  .shorter-pill {
+    font-family: 'Manrope';
+    width: 20%;
+    text-align: center;
+    color:rgb(37, 37, 37);
+    background-color: rgba(255, 255, 255, 0.789);
+    border: 3px solid rgb(33, 33, 33);
+  }
+  
