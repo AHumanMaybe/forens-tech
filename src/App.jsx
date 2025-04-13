@@ -2589,12 +2589,13 @@ function App() {
     setCheckedItems({...checkedItems, ["procList"]: false });
     setCheckedItems({...checkedItems, ["netConn"]: false });
     setCheckedItems({...checkedItems, ["fileList"]: false });
-      setCheckedItems({...checkedItems, ["yara"]: false });
+    setCheckedItems({...checkedItems, ["yara"]: false });
   }
 
 
   const handleSubmit = async (event) =>
   {
+    //setIsdatamode(!isdatamode)
     try {
       console.log("Initiate Execute Analysis!");
       const formData = new FormData();
@@ -2647,17 +2648,21 @@ function App() {
   function LogTable(props)
   {
     return(
-        <div style={{maxHeight: "300px", display:"block", overflowY: "scroll", scrollbarColor: "rgb(200,200,200) rgb(50,50,50)"}}>
+        <div style={{
+          maxHeight: "300px",
+          display:"block",
+          overflowY: "scroll",
+          scrollbarColor: "rgb(89, 89, 89) rgb(230, 230, 230)"}}>
           <table>
             <tr>
-              {Object.keys(testData[props.type]["0"]).map( (item) =>
+              {Object.keys(data[props.type]["0"]).map( (item) =>
                   <th>{item}</th>
               )}
             </tr>
-            {Object.keys(testData[props.type]).map( (idx) =>
+            {Object.keys(data[props.type]).map( (idx) =>
                 <tr>
                   {
-                    Object.values(testData[props.type][idx]).map( (value) =>
+                    Object.values(data[props.type][idx]).map( (value) =>
                         <td style={{padding: "0 15px"}}>{value}</td>
                     )
                   }
