@@ -1,0 +1,24 @@
+
+.execute-button {
+    font-family: 'Manrope';
+    padding: 10px 2ch;
+    width: 200px;
+    background-color: #232323; 
+    border: 2px solid white;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 
+      background-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.2s ease;
+  }
+  
+  .execute-button:hover {
+    background-color: rgb(150, 3, 3);
+    box-shadow: 0 0 12px px rgb(199, 5, 79);
+  }
+  
+
+  

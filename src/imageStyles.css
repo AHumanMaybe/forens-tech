@@ -1,0 +1,91 @@
+html, body {
+  margin: 0;
+    padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Manrope';
+}
+
+/*layout of this page*/
+.layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.check-tests {
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 0px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forenstech-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: auto;
+    z-index: 10;
+    pointer-events: none;
+    margin: 20px;
+}
+
+/*sidebar for all the information*/
+.left-side {
+    margin-top: 100px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: 50px;
+}
+
+.wrapper {
+    display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.tagline {
+    font-size: 16pt;
+}
+
+.masked-image {
+    max-height: calc(100vh - 20px); /* Full height with 20px padding top+bottom */
+    width: auto;  /* Full width with 20px padding left+right */
+  object-fit: contain;
+  display: block;
+    mask-image: url('/public/mask.svg');
+    -webkit-mask-image: url('/public/mask.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+
+    
+  }
+
+@keyframes subtle-zoom {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1.1) rotate(1deg);
+  }
+}

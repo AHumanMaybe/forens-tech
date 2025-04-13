@@ -1,0 +1,61 @@
+/* 📦 Container for the whole group */
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    margin-top: 15px;
+    font-family: 'Manrope';
+  }
+  
+  /* 🏷️ Wrapper for each checkbox + label */
+  .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /* ✅ Custom checkbox input */
+  .custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ffffff;
+    border-radius: 15px;
+    background-color: #4d4d4d;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox:hover {
+    box-shadow: 0 0 10px rgb(248, 35, 138); 
+  }
+  
+  /*  Checked state */
+  .custom-checkbox:checked {
+    background-color: rgb(199, 5, 79);
+    border-color: #ffffff;
+  }
+  
+  .custom-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  /* text labels per checkbox */
+  .checkbox-label {
+    font-size: 16px;
+    color: #ffffff;
+  }
+  
