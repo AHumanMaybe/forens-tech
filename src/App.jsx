@@ -8,7 +8,8 @@ import Checkboxes from "./reusable/Checkboxes.jsx";
 import ExecuteBtn from "./reusable/ExecuteBtn.jsx";
 import TopNav from './reusable/TopNav.jsx';
 import StatBox from "./reusable/StatBox.jsx";
-
+import ExpandData from "./reusable/ExpandData.jsx";
+import BackButton from "./reusable/BackButton.jsx";
 
 
 //randomizer selection
@@ -91,9 +92,9 @@ function App() {
         boxSizing: "border-box",
         gap: "20px"
       }}>
-        <StatBox number={85} label="Threats Detected" />
-        <StatBox number={13} label="Investigations" />
-        <StatBox number={7} label="Alerts Resolved" />
+        <StatBox number={85} label="Threats Detected" anchorId="#" />
+        <StatBox number={13} label="Investigations" anchorId="#" />
+        <StatBox number={7} label="Alerts Resolved" anchorId="#" />
       </div>
     );
   };
@@ -102,7 +103,11 @@ function App() {
     return(
       <>
         <div className="dash-wrapper">
+          <BackButton />
           <Dashboard />
+          <ExpandData title="Process List">
+            Here’s some extra context and documentation on how data is collected, parsed, and sent to the analysis pipeline.
+          </ExpandData>
         </div>
       </>
     )
