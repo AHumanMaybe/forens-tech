@@ -36,17 +36,26 @@ function App() {
   };
 
   const [file, setFile] = useState(null);
+  const [checkedItems, setCheckedItems] = useState({
+    osInfo: false,
+    cmds: false,
+    procList: false,
+    netConn: false,
+    yara: false
+  });
+  
+
   const handleSubmit = async (event) =>
   {
     try {
       console.log("Initiate Execute Analysis!");
       const formData = new FormData();
-      formData.append('dumpName', dumpName);
-      formData.append('osInfo', osInfo);
-      formData.append('cmds', cmds);
-      formData.append('procList', procList);
-      formData.append('netConn', netConn);
-      formData.append('yara', yara);
+      formData.append('dumpName', file);
+      formData.append('osInfo', checkedItems["osInfo"]);
+      formData.append('cmds', checkedItems["cmds"]);
+      formData.append('procList', checkedItems["procList"]);
+      formData.append('netConn', checkedItems["netConn"]);
+      formData.append('yara', checkedItems["yara"]);
 
       const requestOptions = {
         method: "POST",
@@ -76,7 +85,7 @@ function App() {
         <div className = "upload"></div>
         <Dropdown/>
         <div className="check-tests">
-          <Checkboxes/>
+          <Checkboxes checkChange = {setCheckedItems}/>
           <ExecuteBtn handleSubmit={handleSubmit} />
         </div>
       </div>

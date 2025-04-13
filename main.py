@@ -31,6 +31,6 @@ class Exec(BaseModel):
 @app.post("/request")
 async def root(response: Response, exec: Exec):
     
-    
+    results = getdata(r"c:\Users\antho\Desktop\forens-tech\dumps\cridex.vmem", "none", "info", "cmds", "psl", "net", "file")
 
     return {"message": "fail!"}
