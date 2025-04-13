@@ -2599,7 +2599,7 @@ function App() {
         body: formData
       };
 
-      const response = await fetch("http://127.0.0.1:8000/", requestOptions);
+      const response = await fetch("http://127.0.0.1:8000/request", requestOptions);
       const data = await response.json();
       console.log('Response:', data);
       setPage("results");
