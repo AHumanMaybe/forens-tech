@@ -87,6 +87,20 @@ function App() {
         <div className="check-tests">
           <Checkboxes checkChange = {setCheckedItems}/>
           <ExecuteBtn handleSubmit={handleSubmit} />
+=======
+      
+        <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg" />
+        <div className="left-side">
+          <div className = "logo"></div>
+          <div className = "tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools with emerging artificial intelligence technologies. </div>
+          <div className = "upload"></div>
+          <Dropdown/>
+          <div className="check-tests">
+            <h3>Select Arguments:</h3>
+            <Checkboxes/>
+            <ExecuteBtn/>
+          </div>
+>>>>>>> Stashed changes
         </div>
       </div>
 

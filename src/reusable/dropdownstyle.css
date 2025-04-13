@@ -1,9 +1,8 @@
 /* ⬇ Dropdown wrapper */
 .dropdown {
     position: relative;
-    width: 310px;
+    width: 280px;
     margin-top: 20px;
-    
   }
   
   /* ⬇ Toggle button */

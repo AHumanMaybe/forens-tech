@@ -3,8 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 20px;
-    margin-top: 15px;
+    padding: 0px 20px 20px 20px;
     font-family: 'Manrope';
   }
   
@@ -58,4 +57,55 @@
     font-size: 16px;
     color: #ffffff;
   }
+<<<<<<< Updated upstream
   
+=======
+
+  .info-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Info Icon */
+  .info-icon {
+    margin-left: 5px;
+    background-color: #333;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    user-select: none;
+  }
+
+  .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    max-width: 800px;  
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 6px 10px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 24px;
+    white-space: normal;  
+    word-wrap: normal;   
+    overflow-wrap: normal;  
+    transition: opacity 0.2s ease-in-out;
+    font-size: 12px;
+  }
+  
+  
+
+.info-wrapper:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+>>>>>>> Stashed changes
