@@ -22,11 +22,11 @@ a:hover {
   
 }
 
-body {
+body, html {
   margin: 0;
   display: flex;
   background: #171717;
-  background: linear-gradient(37deg,rgba(23, 23, 23, 1) 0%, rgba(31, 31, 31, 1) 60%, rgba(140, 4, 59, 1) 100%);
+  background: linear-gradient(90deg,rgba(23, 23, 23, 1) 0%, rgba(31, 31, 31, 1) 60%, rgba(140, 4, 59, 1) 100%);
 }
 
 h1 {

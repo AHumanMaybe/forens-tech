@@ -48,7 +48,7 @@ function Checkboxes(props) {
       {renderCheckbox("procList", "Process List")}
       {renderCheckbox("cmds", "Executed Commands")}
       {renderCheckbox("netConn", "Show Net Connections")}
-      {renderCheckbox("listFiles", "List Files")}
+      {renderCheckbox("fileList", "List Files")}
       {renderCheckbox("yara", "Yara Rules Check")}
     </div>
   );  

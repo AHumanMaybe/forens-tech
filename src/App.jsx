@@ -6,7 +6,10 @@ import React, { useMemo } from "react";
 import Dropdown from "./reusable/Dropdown.jsx";
 import Checkboxes from "./reusable/Checkboxes.jsx";
 import ExecuteBtn from "./reusable/ExecuteBtn.jsx";
-import TopNav from "./reusable/TopNav.jsx";
+import TopNav from './reusable/TopNav.jsx';
+import StatBox from "./reusable/StatBox.jsx";
+import ExpandData from "./reusable/ExpandData.jsx";
+import BackButton from "./reusable/BackButton.jsx";
 
 const testData = {
   "info": "TreeDepth,Variable,Value\r\n0,Kernel Base,0xf800ca419000\r\n0,DTB,0x1ad000\r\n0,Symbols,file:///C:/Users/antho/Desktop/hackViolet/Luna-Flow/.venv/Lib/site-packages/volatility3/symbols/windows/ntkrnlmp.pdb/1E158A6041094205BE17F93E54DD5E51-1.json.xz\r\n0,Is64Bit,True\r\n0,IsPAE,False\r\n0,layer_name,0 WindowsIntel32e\r\n0,memory_layer,1 FileLayer\r\n0,KdVersionBlock,0xf800ca7c0d50\r\n0,Major/Minor,15.17134\r\n0,MachineType,34404\r\n0,KeNumberProcessors,1\r\n0,SystemTime,2018-08-06 18:13:42+00:00\r\n0,NtSystemRoot,C:\\\\Windows\r\n0,NtProductType,NtProductWinNt\r\n0,NtMajorVersion,10\r\n0,NtMinorVersion,0\r\n0,PE MajorOperatingSystemVersion,10\r\n0,PE MinorOperatingSystemVersion,0\r\n0,PE Machine,34404\r\n0,PE TimeDateStamp,Sat Jul 14 03:53:27 2018\r\n\r\n",
@@ -2556,6 +2559,7 @@ const getRandom = () => {
 };
 
 function App() {
+  const [isdatamode, setIsdatamode] = useState(false)
   const randomImage = useMemo(() => getRandom(), []);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -2567,6 +2571,7 @@ function App() {
   };
 
   const [file, setFile] = useState(null);
+  const [data, setData] = useState(testData);
   const [checkedItems, setCheckedItems] = useState({
     osInfo: false,
     cmds: false,
@@ -2576,8 +2581,16 @@ function App() {
     yara: false
   });
 
-  const [page, setPage] = useState("enter");
-  const [data, setData] = useState(testData);
+  function backButton()
+  {
+    setIsdatamode(!isdatamode)
+    setCheckedItems({...checkedItems, ["osInfo"]: false });
+    setCheckedItems({...checkedItems, ["cmds"]: false });
+    setCheckedItems({...checkedItems, ["procList"]: false });
+    setCheckedItems({...checkedItems, ["netConn"]: false });
+    setCheckedItems({...checkedItems, ["fileList"]: false });
+      setCheckedItems({...checkedItems, ["yara"]: false });
+  }
 
 
   const handleSubmit = async (event) =>
@@ -2595,15 +2608,18 @@ function App() {
 
       const requestOptions = {
         method: "POST",
-        headers: {"Access-Control-Allow-Origin": "*"},
-        body: formData
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: formData,
       };
 
       const response = await fetch("http://127.0.0.1:8000/request", requestOptions);
       const data = await response.json();
       console.log('Response:', data);
-      //setPage("results");
-      //setData(JSON.parse(data));
+      setData(data);
+      setIsdatamode(!isdatamode)
+
     }
     catch (err)
     {
@@ -2611,62 +2627,156 @@ function App() {
     }
   }
 
-  if(false && page === "enter") {
+  const Dashboard = () => {
     return (
-        <>
-          <TopNav/>
-          <div className="layout" onMouseMove={handleMouseMove}>
-
-            <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg"/>
-            <div className="left-side">
-              <div className="logo"></div>
-              <div className="tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools
-                with emerging artificial intelligence technologies.
-              </div>
-              <div className="upload"></div>
-              <Dropdown selected={file} setFile={setFile}/>
-              <div className="check-tests">
-                <Checkboxes setCheckedItems={setCheckedItems} checkedItems={checkedItems}/>
-                <ExecuteBtn onClick={handleSubmit}/>
-              </div>
-            </div>
-
-            <div className="wrapper"
-                 style={{
-                   transform: `translate(${offset.x}px, ${offset.y}px)`
-                 }}
-              >
-              <img src={randomImage} alt="Masked Image" className="masked-image"/>
-            </div>
-          </div>
-        </>
+      <div style={{
+        display: "flex",
+        width: "100%",
+        padding: "20px",
+        boxSizing: "border-box",
+        gap: "20px"
+      }}>
+        <StatBox disabled={!checkedItems["cmds"]} number={data["cmdscount"]} label="Commands" anchorId="#" />
+        <StatBox disabled={!checkedItems["procList"]} number={data["pslcount"]} label="Processes" anchorId="#" />
+        <StatBox disabled={!checkedItems["netConn"]} number={data["netscancount"]} label="Network Connections" anchorId="#" />
+        <StatBox disabled={!checkedItems["fileList"]} number={data["filecount"]} label="Files" anchorId="#" />
+      </div>
     );
-  }
-  else if(true || page === "results")
+  };
+
+  function LogTable(props)
   {
-    console.log(testData["cleanStat"]["0"]);
+    return(
+        <div style={{maxHeight: "300px", display:"block", overflowY: "scroll", scrollbarColor: "rgb(200,200,200) rgb(50,50,50)"}}>
+          <table>
+            <tr>
+              {Object.keys(testData[props.type]["0"]).map( (item) =>
+                  <th>{item}</th>
+              )}
+            </tr>
+            {Object.keys(testData[props.type]).map( (idx) =>
+                <tr>
+                  {
+                    Object.values(testData[props.type][idx]).map( (value) =>
+                        <td style={{padding: "0 15px"}}>{value}</td>
+                    )
+                  }
+                </tr>
+            )}
+          </table>
+        </div>
+    )
+  }
+
+  if (isdatamode) {
     return(
       <>
-        <p>This is the result from cleanStat</p>
-        <table>
-          <th>
-            {Object.keys(testData["cleanStat"]["0"]).map( (item) =>
-              <th>{item}</th>
-            )}
-          </th>
-          {Object.keys(testData["cleanStat"]).map( (idx) =>
-              <tr>
-                {
-                  Object.values(testData["cleanStat"][idx]).map( (value) =>
-                      <td>{value}</td>
-                  )
-                }
-              </tr>
-            )}
-        </table>
+        <div className="dash-wrapper">
+          <BackButton theClick = {backButton}/>
+          <Dashboard />
+
+          {(checkedItems["osInfo"])
+              ?
+              <>
+                <ExpandData title="System Info">
+                  <ExpandData title="Full Log">
+                    {<p>{data["info"]}</p>}
+                  </ExpandData>
+                </ExpandData>
+                <br/>
+              </>
+              : <></>
+          }
+
+          {(checkedItems["cmds"])
+              ?
+              <>
+                <ExpandData title="Commands">
+                  <p>{data["gemcmds"]}</p>
+                  <ExpandData title="Full Log">
+                    <LogTable type={"cleancmds"}/>
+                  </ExpandData>
+                </ExpandData>
+                <br/>
+              </>
+              : <></>
+          }
+
+          {(checkedItems["procList"]) //cleanpsl
+              ?
+              <>
+                <ExpandData title="Processes">
+                  <p>{data["gempsl"]}</p>
+                  <ExpandData title="Full Log">
+                    <LogTable type={"cleanpsl"}/>
+                  </ExpandData>
+                </ExpandData>
+                <br/>
+              </>
+              : <></>
+          }
+
+          {(checkedItems["netConn"])
+              ?
+              <>
+                <ExpandData title="Network Connections">
+                  <p>{data["gemScan"]}</p>
+                  <ExpandData title="Full Log">
+                    <LogTable type={"cleanScan"}/>
+                  </ExpandData>
+                </ExpandData>
+                <br/>
+              </>
+              : <></>
+          }
+
+          {(checkedItems["fileList"])
+              ?
+              <>
+                <ExpandData title="Files">
+                  <p>{data["gemfile"]}</p>
+                  <ExpandData title="Full Log">
+                    <LogTable type={"cleanfile"}/>
+                  </ExpandData>
+                </ExpandData>
+                <br/>
+              </>
+              : <></>
+          }
+
+        </div>
       </>
-    );
+    )
   }
+  return (
+      <>
+        <TopNav/>
+        <div className="layout" onMouseMove={handleMouseMove}>
+
+          <img src="/public/forenstech-red-small.svg" alt="forenstech-logo" className="forenstech-svg"/>
+          <div className="left-side">
+            <div className="logo"></div>
+            <div className="tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools
+              with emerging artificial intelligence technologies.
+            </div>
+            <div className="upload"></div>
+            <Dropdown selected={file} setFile={setFile}/>
+            <div className="check-tests">
+              <Checkboxes setCheckedItems={setCheckedItems} checkedItems={checkedItems}/>
+              <ExecuteBtn onClick={handleSubmit}/>
+            </div>
+          </div>
+
+          <div className="wrapper"
+               style={{
+                 transform: `translate(${offset.x}px, ${offset.y}px)`
+               }}
+            >
+            <img src={randomImage} alt="Masked Image" className="masked-image"/>
+          </div>
+        </div>
+      </>
+  );
 }
 
 export default App

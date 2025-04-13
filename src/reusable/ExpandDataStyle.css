@@ -1,0 +1,48 @@
+.expandable-box {
+    margin: 0 auto;  
+    width: 90%;
+  padding: 10px;
+  max-width: 1200px;
+  border-radius: 30px;
+  background-color: rgba(121, 121, 121, 0.196); /* Dark grey with 80% opacity */
+  backdrop-filter: blur(10px); /* This gives it that frosted glass look */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  color: white;
+  transition: max-height 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  border: 1px solid rgb(105, 105, 105);
+}
+.expandable-header {
+    padding: 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14pt;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  
+  .expandable-title {
+    text-align: center;
+    width: 100%;
+    color: white;
+  }
+  
+  .toggle-icon {
+    position: absolute;
+    right: 20px;
+    font-size: 28pt;
+    font-weight: 400;
+    color: white;
+    transition: transform 0.3s ease;
+  }  
+  
+  .expandable-content {
+    padding: 20px;
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  
