@@ -35,6 +35,45 @@ function App() {
     const y = (e.clientY - innerHeight / 2) / 80;
     setOffset({ x, y });
   };
+
+  const [file, setFile] = useState(null);
+  const [checkedItems, setCheckedItems] = useState({
+    osInfo: false,
+    cmds: false,
+    procList: false,
+    netConn: false,
+    fileList: false,
+    yara: false
+  });
+
+
+  const handleSubmit = async (event) =>
+  {
+    try {
+      console.log("Initiate Execute Analysis!");
+      const formData = new FormData();
+      formData.append('dumpName', "c:\\Users\\antho\\Desktop\\forens-tech\\dumps\\"+file);
+      formData.append('osInfo', checkedItems["osInfo"]);
+      formData.append('cmds', checkedItems["cmds"]);
+      formData.append('procList', checkedItems["procList"]);
+      formData.append('netConn', checkedItems["netConn"]);
+      formData.append('fileList', checkedItems["fileList"]);
+      formData.append('yara', checkedItems["yara"]);
+
+      const requestOptions = {
+        method: "POST",
+        body: formData
+      };
+
+      const response = await fetch("http://localhost:5174/", requestOptions);
+      const data = await response.json();
+      console.log('Response:', data);
+    }
+    catch (err)
+    {
+      console.log("Failed to Execute Analysis!");
+    }
+  }
     
   return (
     <>
@@ -46,10 +85,10 @@ function App() {
           <div className = "logo"></div>
           <div className = "tagline">Accelerated cybersecurity analytics for your mission by combining legacy tools with emerging artificial intelligence technologies. </div>
           <div className = "upload"></div>
-          <Dropdown/>
+          <Dropdown selected={file} setFile={setFile}/>
           <div className="check-tests">
-            <Checkboxes/>
-            <ExecuteBtn/>
+            <Checkboxes setCheckedItems={setCheckedItems} checkedItems = {checkedItems} />
+            <ExecuteBtn onClick={handleSubmit}/>
           </div>
         </div>
 

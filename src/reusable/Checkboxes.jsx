@@ -2,29 +2,21 @@ import { useState } from "react";
 import "./CheckboxGroup.css";
 
 const infoTexts = {
-  OSinfo: "Helpful for identifying the target environment.",
-  processList: "Useful for detecting suspicious or hidden processes.",
-  execCmds: "Great for reconstructing attacker actions.",
-  showNet: "Key for spotting remote connections or data exfiltration.",
+  osInfo: "Helpful for identifying the target environment.",
+  procList: "Useful for detecting suspicious or hidden processes.",
+  cmds: "Great for reconstructing attacker actions.",
+  netConn: "Key for spotting remote connections or data exfiltration.",
   listFiles: "Useful for finding files in use during compromise.",
-  yaraRules: "Powerful for detecting known threats or custom patterns.",
+  yara: "Powerful for detecting known threats or custom patterns.",
 };
 
-function Checkboxes() {
-  const [checkedItems, setCheckedItems] = useState({
-    OSinfo: false,
-    processList: false,
-    execCmds: false,
-    showNet: false,
-    listFiles: false,
-    yaraRules: false,
-  });
+function Checkboxes(props) {
 
   const [visibleInfo, setVisibleInfo] = useState(null);
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
-    setCheckedItems({ ...checkedItems, [name]: checked });
+    props.setCheckedItems({ ...props.checkedItems, [name]: checked });
   };
 
   const toggleInfo = (name) => {
@@ -36,7 +28,7 @@ function Checkboxes() {
       <input
         type="checkbox"
         name={name}
-        checked={checkedItems[name]}
+        checked={props.checkedItems[name]}
         onChange={handleChange}
         className="custom-checkbox"
       />
@@ -52,12 +44,12 @@ function Checkboxes() {
   
   return (
     <div className="checkbox-container">
-      {renderCheckbox("OSinfo", "OS info")}
-      {renderCheckbox("processList", "Process List")}
-      {renderCheckbox("execCmds", "Executed Commands")}
-      {renderCheckbox("showNet", "Show Net Connections")}
+      {renderCheckbox("osInfo", "OS info")}
+      {renderCheckbox("procList", "Process List")}
+      {renderCheckbox("cmds", "Executed Commands")}
+      {renderCheckbox("netConn", "Show Net Connections")}
       {renderCheckbox("listFiles", "List Files")}
-      {renderCheckbox("yaraRules", "Yara Rules Check")}
+      {renderCheckbox("yara", "Yara Rules Check")}
     </div>
   );  
 }

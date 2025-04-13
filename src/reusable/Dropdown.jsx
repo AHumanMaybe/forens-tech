@@ -1,21 +1,20 @@
 import { useState } from "react";
 import "./dropdownstyle.css";
 
-function Dropdown() {
-  const [selected, setSelected] = useState("Choose File");
+function Dropdown(props) {
   const [open, setOpen] = useState(false);
 
-  const options = ["Option 1", "Option 2", "Option 3"];
+  const options = ["memdump.mem", "cridex.vmem"];
 
   const handleSelect = (option) => {
-    setSelected(option);
+    props.setFile(option);
     setOpen(false);
   };
 
   return (
     <div className="dropdown">
       <button className="dropdown-toggle" onClick={() => setOpen(!open)}>
-        {selected}
+        {props.selected}
         <span className={`arrow ${open ? "up" : "down"}`}></span>
       </button>
       {open && (
