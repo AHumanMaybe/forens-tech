@@ -65,7 +65,7 @@ function App() {
         body: formData
       };
 
-      const response = await fetch("http://localhost:5174/", requestOptions);
+      const response = await fetch("http://127.0.0.1:8000/", requestOptions);
       const data = await response.json();
       console.log('Response:', data);
     }
